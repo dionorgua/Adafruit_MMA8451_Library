@@ -205,6 +205,35 @@ void Adafruit_MMA8451::setDataRate(mma8451_dataRate_t dataRate)
 }
 
 /**************************************************************************/
+void Adafruit_MMA8451::enableMotionDetection()
+{
+//  writeRegister8(MMA8451_REG_CTRL_REG1, 0x18);// deactivate
+
+#if 0
+    writeRegister8(0x15, 0xD8);
+    writeRegister8(0x17, 0x30);
+    writeRegister8(0x18, 0x0A);
+
+    writeRegister8(0x2D, 0x04);
+    writeRegister8(0x2E, 0x00);
+#endif
+#if 1
+    writeRegister8(MMA8451_REG_CTRL_REG1, 0x18);// deactivate
+    writeRegister8(0x1D, 0x16);
+    writeRegister8(0x1F, 0x01);
+    writeRegister8(0x20, 0x03);
+    writeRegister8(0x2D, 0x20);
+    writeRegister8(0x2E, 0x00);
+#endif
+
+  uint8_t reg1 = readRegister8(MMA8451_REG_CTRL_REG1);
+  reg1 |= 1;
+    writeRegister8(MMA8451_REG_CTRL_REG1, reg1);
+
+}
+
+
+/**************************************************************************/
 /*!
     @brief  Gets the data rate for the MMA8451 (controls power consumption)
 */

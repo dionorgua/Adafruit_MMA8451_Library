@@ -45,6 +45,11 @@
 #define MMA8451_REG_XYZ_DATA_CFG  0x0E
 #define MMA8451_REG_PL_STATUS     0x10
 #define MMA8451_REG_PL_CFG        0x11
+#define MMA8451_REG_FF_MT_CFG     0x15
+#define MMA8451_REG_FF_MT_SRC     0x16
+#define MMA8451_REG_FF_MT_THS     0x17
+#define MMA8451_REG_FF_MT_CNT     0x18
+
 #define MMA8451_REG_CTRL_REG1     0x2A
 #define MMA8451_REG_CTRL_REG2     0x2B
 #define MMA8451_REG_CTRL_REG4     0x2D
@@ -105,6 +110,8 @@ class Adafruit_MMA8451
   void setDataRate(mma8451_dataRate_t dataRate);
   mma8451_dataRate_t getDataRate(void);
 
+    void enableMotionDetection();
+
 #ifdef USE_SENSOR
   bool getEvent(sensors_event_t *event);
   void getSensor(sensor_t *sensor);
@@ -116,8 +123,9 @@ class Adafruit_MMA8451
   float x_g, y_g, z_g;
 
   void writeRegister8(uint8_t reg, uint8_t value);
- protected:
+
   uint8_t readRegister8(uint8_t reg);
+ protected:
  private:
   int32_t _sensorID;
   int8_t  _i2caddr;
